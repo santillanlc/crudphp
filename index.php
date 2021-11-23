@@ -16,7 +16,7 @@
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item active">
-	        <a class="nav-link" href="#">Principal <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="index.php">Principal <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">Nuevo blog</a>
@@ -27,7 +27,7 @@
 	        </a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href="#">Nuevo blog</a>
-	          <a class="dropdown-item" href="#">Consultar blogs</a>
+	          <a class="dropdown-item" href="consultarBlogs.php">Consultar blogs</a>
 	          <div class="dropdown-divider"></div>
 	        </div>
 	      </li>
@@ -47,7 +47,7 @@
 				  <p class="lead">Esta es una página para la gestión de blogs</p>
 				  <hr class="my-4">
 				  <p>Puedes consultar diferentes tipos de blogs, así como también crear tu propio blog, además de poder dar tu opinión en un comentario.</p>
-				  <a class="btn btn-primary btn-lg" href="#" role="button">Explorar blogs...</a>
+				  <a class="btn btn-primary btn-lg" href="consultarBlogs.php" role="button">Explorar blogs...</a>
 				</div>
 			</div>
 		</div>

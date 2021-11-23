@@ -4,18 +4,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.css">
-	<title>Gestor de Blogs</title>
+	<title>Nuevo blog</title>
 </head>
 <body>
-	<?php
-		$servidor = "localhost"; $usuario = "root"; $contrasena = ""; $bd = "blogs";
-		$conexion = new mysqli($servidor, $usuario, $contrasena, $bd);
-
-		if($conexion->connect_error){ echo "Error al conectar a la Base de datos"; }
-
-		$sql = "SELECT * FROM posts";
-		$datos = $conexion->query($sql);
-	?>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <a class="navbar-brand" href="#">Blogs</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,32 +42,34 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<?php
-					if ($datos->num_rows > 0) {
-				?>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Titulo</th>
-							<th>Fecha</th>
-							<th>Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							while($blog = $datos->fetch_assoc()){
-								echo "<tr>";
-									echo "<td>".$blog["id"]."</td>";
-									echo "<td>".$blog["titulo"]."</td>";
-									echo "<td>".$blog["fecha"]."</td>";
-									echo "<td><a class='btn btn-success'>Editar</a> <a class='btn btn-danger'>Eliminar</a> <a class='btn btn-secondary'>Ir</a></td>";
-								echo "</tr>";
-							}
-						?>
-					</tbody>
-				</table>
-				<?php } else { echo "<h1>No existen blogs</h1>"; $conexion->close(); } ?>
+				<h1>Registro de Blog</h1><hr>
+				<form action="">
+					<div class="form-group">
+						<label for="titulo">Titulo del blog:</label>
+						<input type="text" class="form-control" name="titulo" placeholder="Teclea el titulo">
+					</div>
+					<div class="form-group">
+						<label for="contenido">Contenido:</label>
+						<textarea  cols="30" rows="5" class="form-control" name="contenido" placeholder="Teclea contenido"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="imagen">Selecciona una imagen:</label>
+						<div class="row">
+							<div class="col-sm-3">
+								<input type="radio" name="imagen">
+								<img src="imagenes/imagen1.jpg" alt="" class="img-fluid">
+							</div>
+							<div class="col-sm-3">
+								<input type="radio" name="imagen">
+								<img src="imagenes/imagen2.jpg" alt="" class="img-fluid">
+							</div>
+							<div class="col-sm-3">
+								<input type="radio" name="imagen">
+								<img src="imagenes/imagen3.jpg" alt="" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
