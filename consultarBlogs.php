@@ -28,14 +28,14 @@
 	        <a class="nav-link" href="index.php">Principal <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Nuevo blog</a>
+	        <a class="nav-link" href="nuevoBlog.php">Nuevo blog</a>
 	      </li>
 	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
 	          Opciones
 	        </a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Nuevo blog</a>
+	          <a class="dropdown-item" href="nuevoBlog.php">Nuevo blog</a>
 	          <a class="dropdown-item" href="consultarBlogs.php">Consultar blogs</a>
 	          <div class="dropdown-divider"></div>
 	        </div>
@@ -70,7 +70,7 @@
 									echo "<td>".$blog["id"]."</td>";
 									echo "<td>".$blog["titulo"]."</td>";
 									echo "<td>".$blog["fecha"]."</td>";
-									echo "<td><a class='btn btn-success'>Editar</a> <a class='btn btn-danger'>Eliminar</a> <a class='btn btn-secondary'>Ir</a></td>";
+									echo "<td><a class='btn btn-success'>Editar</a> <a class='btn btn-danger' href='eliminarBlog.php?id=".$blog["id"]."'>Eliminar</a> <a class='btn btn-secondary'>Ir</a></td>";
 								echo "</tr>";
 							}
 						?>

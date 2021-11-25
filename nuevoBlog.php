@@ -8,7 +8,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="#">Blogs</a>
+	  <a class="navbar-brand" href="nuevoBlog.php">Blogs</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -19,7 +19,7 @@
 	        <a class="nav-link" href="index.php">Principal <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Nuevo blog</a>
+	        <a class="nav-link" href="nuevoBlog.php">Nuevo blog</a>
 	      </li>
 	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -43,31 +43,35 @@
 		<div class="row">
 			<div class="col">
 				<h1>Registro de Blog</h1><hr>
-				<form action="">
+				<form action="guardarBlog.php" method="POST">
 					<div class="form-group">
 						<label for="titulo">Titulo del blog:</label>
 						<input type="text" class="form-control" name="titulo" placeholder="Teclea el titulo">
 					</div>
 					<div class="form-group">
 						<label for="contenido">Contenido:</label>
-						<textarea  cols="30" rows="5" class="form-control" name="contenido" placeholder="Teclea contenido"></textarea>
+						<textarea  cols="30" rows="5" class="form-control" name="contenido" placeholder="Teclea contenido" required></textarea>
 					</div>
 					<div class="form-group">
 						<label for="imagen">Selecciona una imagen:</label>
 						<div class="row">
 							<div class="col-sm-3">
-								<input type="radio" name="imagen">
+								<input type="radio" name="imagen" value="imagen1">
 								<img src="imagenes/imagen1.jpg" alt="" class="img-fluid">
 							</div>
 							<div class="col-sm-3">
-								<input type="radio" name="imagen">
+								<input type="radio" name="imagen" value="imagen2">
 								<img src="imagenes/imagen2.jpg" alt="" class="img-fluid">
 							</div>
 							<div class="col-sm-3">
-								<input type="radio" name="imagen">
+								<input type="radio" name="imagen" value="imagen3">
 								<img src="imagenes/imagen3.jpg" alt="" class="img-fluid">
 							</div>
 						</div>
+					</div>
+					<div>
+						<input type="submit" value="Guardar" class="btn btn-primary">
+						<a href="consultarBlogs.php" class="btn btn-info">Cancelar</a>
 					</div>
 				</form>
 			</div>
