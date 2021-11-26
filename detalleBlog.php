@@ -4,17 +4,27 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.css">
-	<title>Gestor de Blogs</title>
+	<title>Detalle de blog</title>
 </head>
 <body>
 	<?php
+		//eliminarBlog.php?id=1
+
 		$servidor = "localhost"; $usuario = "root"; $contrasena = ""; $bd = "blogs";
 		$conexion = new mysqli($servidor, $usuario, $contrasena, $bd);
 
 		if($conexion->connect_error){ echo "Error al conectar a la Base de datos"; }
 
-		$sql = "SELECT * FROM posts";
+		$id = $_GET["id"];
+
+		$sql = "SELECT * FROM posts WHERE id=$id";
 		$datos = $conexion->query($sql);
+
+		$blog = $datos->fetch_assoc();
+
+		$sql2 = "SELECT * FROM comentarios WHERE idpost = $id";
+		$datos2 = $conexion->query($sql2);
+
 	?>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <a class="navbar-brand" href="#">Blogs</a>
@@ -50,33 +60,34 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col">
-				<?php
-					if ($datos->num_rows > 0) {
-				?>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Titulo</th>
-							<th>Fecha</th>
-							<th>Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							while($blog = $datos->fetch_assoc()){
+			<div class="col-sm-6 offset-md-3">
+				<div class="card">
+				  <img src="imagenes/<?php echo $blog['imagen']; ?>" class="card-img-top" alt="...">
+				  <div class="card-body">
+				    <h5 class="card-title"><?php echo $blog["titulo"]; ?></h5>
+				    <p class="card-text"><?php echo $blog["contenido"]; ?></p>
+				    <h5>Lo que los usuarios han comentado</h5>
+				    <table class="table table-hover">
+				    	<tbody>
+				    	<?php
+							while($c = $datos2->fetch_assoc()){
 								echo "<tr>";
-									echo "<td>".$blog["id"]."</td>";
-									echo "<td>".$blog["titulo"]."</td>";
-									echo "<td>".$blog["fecha"]."</td>";
-									echo "<td><a class='btn btn-success'>Editar</a> <a class='btn btn-danger' href='eliminarBlog.php?id=".$blog["id"]."'>Eliminar</a> <a class='btn btn-secondary' href='detalleBlog.php?id=".$blog["id"]."'>Ir</a></td>";
+									echo "<td>".$c["comentario"]."</td>";
 								echo "</tr>";
 							}
 						?>
-					</tbody>
-				</table>
-				<?php } else { echo "<h1>No existen blogs</h1>"; $conexion->close(); } ?>
+				    	</tbody>
+				    </table>
+				    <div class="form-group">
+				    	<form action="guardarComentario.php?id=<?php echo $blog['id']; ?>" method="POST">
+				    		<label>Comentario:</label>
+				    		<textarea name="comentario" rows="3" placeholder="Escribe un comentario" class="form-control" required></textarea>
+				    		<input type="submit" value="Comentar" class="btn btn-info">
+				    	</form>
+				    </div>
+				    <a href="consultarBlogs.php" class="btn btn-primary">Regresar a blogs</a>
+				  </div>
+				</div>
 			</div>
 		</div>
 	</div>
