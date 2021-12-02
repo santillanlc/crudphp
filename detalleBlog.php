@@ -25,6 +25,13 @@
 		$sql2 = "SELECT * FROM comentarios WHERE idpost = $id";
 		$datos2 = $conexion->query($sql2);
 
+		$registro = "SELECT total FROM reacciones WHERE idpost = $id AND num_reaccion=1";
+		$datos = $conexion->query($registro);
+		$reaccion_megusta = $datos->fetch_assoc();
+
+		$registro2 = "SELECT total FROM reacciones WHERE idpost = $id AND num_reaccion=2";
+		$datos2 = $conexion->query($registro2);
+		$reaccion_meencanta = $datos2->fetch_assoc();
 	?>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <a class="navbar-brand" href="#">Blogs</a>
@@ -64,6 +71,24 @@
 				<div class="card">
 				  <img src="imagenes/<?php echo $blog['imagen']; ?>" class="card-img-top" alt="...">
 				  <div class="card-body">
+				  	<div class="row mb-3">
+				  		<div class="col-1">
+				  			<a href="megusta.php?reaccion=1&id=<?php echo $blog['id']; ?>">
+				  				<img src="imagenes/like.png" width="35px">
+				  			</a>
+				  		</div>
+				  		<div class="col-2 mt-2 text-left">
+				  			<?php echo $reaccion_megusta["total"]; ?>
+				  		</div>
+				  		<div class="col-1">
+				  			<a href="megusta.php?reaccion=2&id=<?php echo $blog['id']; ?>">
+				  				<img src="imagenes/meencanta.png" width="43px">
+				  			</a>
+				  		</div>
+				  		<div class="col-2 mt-2 text-left">
+				  			<?php echo $reaccion_meencanta["total"]; ?>
+				  		</div>
+				  	</div>
 				    <h5 class="card-title"><?php echo $blog["titulo"]; ?></h5>
 				    <p class="card-text"><?php echo $blog["contenido"]; ?></p>
 				    <h5>Lo que los usuarios han comentado</h5>
