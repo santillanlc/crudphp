@@ -4,20 +4,27 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.css">
-	<title>Gestor de Blogs</title>
+	<title>Editar blog</title>
 </head>
 <body>
-	<?php
+	<?php 
+
+		//Lo copié de detalleblog
 		$servidor = "localhost"; $usuario = "root"; $contrasena = ""; $bd = "blogs";
 		$conexion = new mysqli($servidor, $usuario, $contrasena, $bd);
 
 		if($conexion->connect_error){ echo "Error al conectar a la Base de datos"; }
 
-		$sql = "SELECT * FROM posts";
+		$id = $_GET["id"];
+
+		$sql = "SELECT * FROM posts WHERE id=$id";
 		$datos = $conexion->query($sql);
+
+		$blog = $datos->fetch_assoc();
+
 	?>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="#">Blogs</a>
+	  <a class="navbar-brand" href="nuevoBlog.php">Blogs</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -35,7 +42,7 @@
 	          Opciones
 	        </a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="nuevoBlog.php">Nuevo blog</a>
+	          <a class="dropdown-item" href="#">Nuevo blog</a>
 	          <a class="dropdown-item" href="consultarBlogs.php">Consultar blogs</a>
 	          <div class="dropdown-divider"></div>
 	        </div>
@@ -51,32 +58,39 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<?php
-					if ($datos->num_rows > 0) {
-				?>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Titulo</th>
-							<th>Fecha</th>
-							<th>Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							while($blog = $datos->fetch_assoc()){
-								echo "<tr>";
-									echo "<td>".$blog["id"]."</td>";
-									echo "<td>".$blog["titulo"]."</td>";
-									echo "<td>".$blog["fecha"]."</td>";
-									echo "<td><a class='btn btn-success' href='editarBlog.php?id=".$blog["id"]."'>Editar</a> <a class='btn btn-danger' href='eliminarBlog.php?id=".$blog["id"]."'>Eliminar</a> <a class='btn btn-secondary' href='detalleBlog.php?id=".$blog["id"]."'>Ir</a></td>";
-								echo "</tr>";
-							}
-						?>
-					</tbody>
-				</table>
-				<?php } else { echo "<h1>No existen blogs</h1>"; $conexion->close(); } ?>
+				<h1>Registro de Blog</h1><hr>
+				<form action="actualizarBlog.php" method="POST">
+					<input type="hidden" name="id" value="<?php echo $blog['id']; ?>">
+					<div class="form-group">
+						<label for="titulo">Titulo del blog:</label>
+						<input type="text" class="form-control" name="titulo" placeholder="Teclea el titulo" value="<?php echo $blog['titulo']; ?>">
+					</div>
+					<div class="form-group">
+						<label for="contenido">Contenido:</label>
+						<textarea  cols="30" rows="5" class="form-control" name="contenido" placeholder="Teclea contenido" required><?php echo $blog['contenido']; ?></textarea>
+					</div>
+					<div class="form-group">
+						<label for="imagen">Selecciona una imagen:</label>
+						<div class="row">
+							<div class="col-sm-3">
+								<input type="radio" name="imagen" value="imagen1.jpg" <?php if($blog['imagen']=='imagen1.jpg') echo "checked";  ?>>
+								<img src="imagenes/imagen1.jpg" alt="" class="img-fluid">
+							</div>
+							<div class="col-sm-3">
+								<input type="radio" name="imagen" value="imagen2.jpg" <?php if($blog['imagen']=='imagen2.jpg') echo "checked";  ?>>
+								<img src="imagenes/imagen2.jpg" alt="" class="img-fluid">
+							</div>
+							<div class="col-sm-3">
+								<input type="radio" name="imagen" value="imagen3.jpg" <?php if($blog['imagen']=='imagen3.jpg') echo "checked";  ?>>
+								<img src="imagenes/imagen3.jpg" alt="" class="img-fluid">
+							</div>
+						</div>
+					</div>
+					<div>
+						<input type="submit" value="Guardar" class="btn btn-primary">
+						<a href="consultarBlogs.php" class="btn btn-info">Cancelar</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
